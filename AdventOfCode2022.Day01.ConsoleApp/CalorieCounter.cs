@@ -4,9 +4,12 @@ namespace AdventOfCode2022.Day01.ConsoleApp
 {
     public class CalorieCounter : ITask
     {
+        private List<int> _totalCaloriesList = new List<int>();
+
         public long GetAnswer1()
         {
-            return 0;
+            var maxTotalCalories = _totalCaloriesList.Max();
+            return maxTotalCalories;
         }
 
         public long GetAnswer2()
@@ -16,6 +19,18 @@ namespace AdventOfCode2022.Day01.ConsoleApp
 
         public void SetupPuzzleInput(List<string> puzzleInput)
         {
+            var totalCalories = 0;
+
+            foreach (var calorie in puzzleInput)
+            {
+                if (!string.IsNullOrEmpty(calorie))
+                    totalCalories += Convert.ToInt32(calorie);
+                else
+                {
+                    _totalCaloriesList.Add(totalCalories);
+                    totalCalories = 0;
+                }
+            }
         }
     }
 }
