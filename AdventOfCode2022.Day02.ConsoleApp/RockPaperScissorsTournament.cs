@@ -1,5 +1,4 @@
 ﻿using AdventOfCode2022.Shared;
-using System.Linq;
 
 namespace AdventOfCode2022.Day02.ConsoleApp
 {
