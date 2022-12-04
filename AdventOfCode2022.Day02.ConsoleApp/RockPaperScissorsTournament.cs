@@ -13,8 +13,9 @@ namespace AdventOfCode2022.Day02.ConsoleApp
 
             foreach (var round in _tournament)
             {
-                totalPoints += GetMovePoints(round);
-                totalPoints += GetOutcomePoints(round);
+
+                totalPoints += GetMovePoints(round.MyMove);
+                totalPoints += GetOutcomePoints(round.OpponentMove, round.MyMove);
             }
 
             return totalPoints;
@@ -22,18 +23,61 @@ namespace AdventOfCode2022.Day02.ConsoleApp
 
         public long GetAnswer2()
         {
-            return 0;
+            var totalPoints = 0;
+
+            foreach (var round in _tournament)
+            {
+                var outcomeMove = GetOutcomeMove(round);
+                totalPoints += GetMovePoints(outcomeMove);
+                totalPoints += GetOutcomePoints(round.OpponentMove, outcomeMove);
+            }
+
+            return totalPoints;
         }
 
         public void SetupPuzzleInput(List<string> puzzleInput)
         {
             _tournament = puzzleInput.Select(p => new Round(p.Split(" ")[0], p.Split(" ")[1])).ToList();
-
         }
 
-        private int GetMovePoints(Round round)
+        private string GetOutcomeMove(Round round)
         {
-            switch (round.MyMove)
+            if (round.MyMove == "X")
+            {
+                if (round.OpponentMove == "A")
+                    return "Z";
+                if (round.OpponentMove == "B")
+                    return "X";
+                if (round.OpponentMove == "C")
+                    return "Y";
+            }
+
+            if (round.MyMove == "Y")
+            {
+                if (round.OpponentMove == "A")
+                    return "X";
+                if (round.OpponentMove == "B")
+                    return "Y";
+                if (round.OpponentMove == "C")
+                    return "Z";
+            }
+
+            if (round.MyMove == "Z")
+            {
+                if (round.OpponentMove == "A")
+                    return "Y";
+                if (round.OpponentMove == "B")
+                    return "Z";
+                if (round.OpponentMove == "C")
+                    return "X";
+            }
+
+            return ""; 
+        }
+
+        private int GetMovePoints(string myMove)
+        {
+            switch (myMove)
             {
                 case "X": return 1;
                 case "Y": return 2;
@@ -42,48 +86,48 @@ namespace AdventOfCode2022.Day02.ConsoleApp
             }
         }
 
-        private int GetOutcomePoints(Round round)
+        private int GetOutcomePoints(string opponentMove, string myMove)
         {
-            if (round.OpponentMove == "A")
-                return GetOpponentRockPoints(round);
-            if (round.OpponentMove == "B")
-                return GetOpponentPaperPoints(round);
-            if (round.OpponentMove == "C")
-                return GetOpponentScissorsPoints(round);
+            if (opponentMove == "A")
+                return GetOpponentRockPoints(myMove);
+            if (opponentMove == "B")
+                return GetOpponentPaperPoints(myMove);
+            if (opponentMove == "C")
+                return GetOpponentScissorsPoints(myMove);
 
             return 0;
         }
 
-        private int GetOpponentRockPoints(Round round)
+        private int GetOpponentRockPoints(string myMove)
         {
-            if (round.MyMove == "X")
+            if (myMove == "X")
                 return 3;
-            if (round.MyMove == "Y")
+            if (myMove == "Y")
                 return 6;
-            if (round.MyMove == "Z")
+            if (myMove == "Z")
                 return 0;
 
             return 0;
         }
-        private int GetOpponentPaperPoints(Round round)
+        private int GetOpponentPaperPoints(string myMove)
         {
-            if (round.MyMove == "X")
+            if (myMove == "X")
                 return 0;
-            if (round.MyMove == "Y")
+            if (myMove == "Y")
                 return 3;
-            if (round.MyMove == "Z")
+            if (myMove == "Z")
                 return 6;
 
             return 0;
         }
 
-        private int GetOpponentScissorsPoints(Round round)
+        private int GetOpponentScissorsPoints(string myMove)
         {
-            if (round.MyMove == "X")
+            if (myMove == "X")
                 return 6;
-            if (round.MyMove == "Y")
+            if (myMove == "Y")
                 return 0;
-            if (round.MyMove == "Z")
+            if (myMove == "Z")
                 return 3;
 
             return 0;
