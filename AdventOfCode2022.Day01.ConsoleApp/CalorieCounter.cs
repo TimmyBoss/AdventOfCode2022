@@ -14,7 +14,8 @@ namespace AdventOfCode2022.Day01.ConsoleApp
 
         public long GetAnswer2()
         {
-            return 0;
+            var sorted = _totalCaloriesList.OrderByDescending(t => t).Take(3);
+            return sorted.Sum();
         }
 
         public void SetupPuzzleInput(List<string> puzzleInput)
