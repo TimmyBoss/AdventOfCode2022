@@ -25,8 +25,22 @@ namespace AdventOfCode2022.Day05.ConsoleApp
                 Add(Convert.ToInt32(stackId.ToString()), "");
             }
 
-      //      
+            for (int i = stackList.Count - 2; i >= 0; i--)
+            {
+                var cleanString = stackList[i].Replace("[","").Replace(oldValue: "] ","").Replace(" ", "");
+                
+                for (int j = 0; j < stackIds.Length; j++)
+                    if (j <= cleanString.Length-1)
+                        this[j+1] = this[j+1] += cleanString[j];    
+                    else this[j + 1] = this[j + 1] += " ";
+            }
+        }
 
+        public void Move(int amount, int from, int to)
+        {
+            var items = this[from].Substring(this[from].Length - amount, this[from].Length-1);
+            this[from] = this[from].Remove(this[from].Length - amount);
+            this[to] = this[to] += items;
         }
     }
 }
