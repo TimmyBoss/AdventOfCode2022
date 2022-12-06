@@ -18,6 +18,15 @@ namespace AdventOfCode2022.Day05.ConsoleApp
 
         public Stack(List<string> stackList)
         {
+            var stackIds = stackList.Last().Replace(" ", "");
+
+            foreach (var stackId in stackIds)
+            {
+                Add(Convert.ToInt32(stackId.ToString()), "");
+            }
+
+      //      
+
         }
     }
 }
