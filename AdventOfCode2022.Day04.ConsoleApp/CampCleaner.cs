@@ -6,7 +6,7 @@ namespace AdventOfCode2022.Day04.ConsoleApp
     {
         private List<string> _puzzleInput = new List<string>();
 
-        public long GetAnswer1()
+        public string GetAnswer1()
         {
             var totalAmount = 0;
 
@@ -21,10 +21,10 @@ namespace AdventOfCode2022.Day04.ConsoleApp
                     totalAmount++;
             }
 
-            return totalAmount;
+            return totalAmount.ToString();
         }
 
-        public long GetAnswer2()
+        public string GetAnswer2()
         {
             var totalAmount = 0;
 
@@ -41,7 +41,7 @@ namespace AdventOfCode2022.Day04.ConsoleApp
                     totalAmount++;
             }
 
-            return totalAmount;
+            return totalAmount.ToString();
         }
 
         public void SetupPuzzleInput(List<string> puzzleInput)

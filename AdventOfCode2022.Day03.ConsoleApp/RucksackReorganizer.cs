@@ -7,7 +7,7 @@ namespace AdventOfCode2022.Day03.ConsoleApp
         List<string> _items = new List<string>();
         List<List<string>> _itemGroups = new List<List<string>>();
 
-        public long GetAnswer1()
+        public string GetAnswer1()
         {
             var totalPriorities = 0;
 
@@ -16,10 +16,10 @@ namespace AdventOfCode2022.Day03.ConsoleApp
                 totalPriorities += GetPriority(item);
             }
 
-            return totalPriorities;
+            return totalPriorities.ToString();
         }
 
-        public long GetAnswer2()
+        public string GetAnswer2()
         {
             var totalPriorities = 0;
             var priorities = new Priorities();
@@ -29,7 +29,7 @@ namespace AdventOfCode2022.Day03.ConsoleApp
                 var recurringChar = GetRecurringCharInGroup(itemGroup);
                 totalPriorities += priorities[recurringChar];
             }
-            return totalPriorities;
+            return totalPriorities.ToString();
         }
 
         public void SetupPuzzleInput(List<string> puzzleInput)

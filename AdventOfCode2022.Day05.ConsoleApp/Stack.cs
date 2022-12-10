@@ -18,6 +18,7 @@ namespace AdventOfCode2022.Day05.ConsoleApp
 
         public Stack(List<string> stackList)
         {
+
             var stackIds = stackList.Last().Replace(" ", "");
 
             foreach (var stackId in stackIds)
@@ -27,18 +28,19 @@ namespace AdventOfCode2022.Day05.ConsoleApp
 
             for (int i = stackList.Count - 2; i >= 0; i--)
             {
-                var cleanString = stackList[i].Replace("[","").Replace(oldValue: "] ","").Replace(" ", "");
-                
+                var cleanString = stackList[i].Chunk(4).ToList();
+
                 for (int j = 0; j < stackIds.Length; j++)
-                    if (j <= cleanString.Length-1)
-                        this[j+1] = this[j+1] += cleanString[j];    
-                    else this[j + 1] = this[j + 1] += " ";
+                    this[j + 1] += cleanString[j][1];
             }
+
+            for (int j = 0; j < stackIds.Length; j++)
+                this[j + 1] = this[j+1].Replace(" ", "");
         }
 
         public void Move(int amount, int from, int to)
         {
-            var items = this[from].Substring(this[from].Length - amount, this[from].Length-1);
+            var items = this[from].Substring(this[from].Length - amount, amount);
             this[from] = this[from].Remove(this[from].Length - amount);
             this[to] = this[to] += items;
         }

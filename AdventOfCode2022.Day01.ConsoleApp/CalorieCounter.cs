@@ -6,16 +6,16 @@ namespace AdventOfCode2022.Day01.ConsoleApp
     {
         private List<int> _totalCaloriesList = new List<int>();
 
-        public long GetAnswer1()
+        public string GetAnswer1()
         {
             var maxTotalCalories = _totalCaloriesList.Max();
-            return maxTotalCalories;
+            return maxTotalCalories.ToString();
         }
 
-        public long GetAnswer2()
+        public string GetAnswer2()
         {
             var sorted = _totalCaloriesList.OrderByDescending(t => t).Take(3);
-            return sorted.Sum();
+            return sorted.Sum().ToString();
         }
 
         public void SetupPuzzleInput(List<string> puzzleInput)

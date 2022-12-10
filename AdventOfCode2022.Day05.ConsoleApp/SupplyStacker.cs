@@ -2,23 +2,33 @@
 
 namespace AdventOfCode2022.Day05.ConsoleApp
 {
-    internal class SupplyStacker : ITask
+    public class SupplyStacker : ITask
     {
-        private Stack _stack = new Stack();
+        private Stack _stack;
 
-        public long GetAnswer1()
+        public string GetAnswer1()
         {
-            return 0;
+            var answer = "";
+
+            foreach (var item in _stack)
+                answer += item.Value.Last();
+
+            return answer;
         }
 
-        public long GetAnswer2()
+        public string GetAnswer2()
         {
-            return 0;
+            var answer = "";
+
+            foreach (var item in _stack)
+                answer += item.Value.Last();
+
+            return answer;
         }
 
         public void SetupPuzzleInput(List<string> puzzleInput)
         {
-            var _stack = GetStack(puzzleInput);
+            var stack = GetStack(puzzleInput);
             var moveList = puzzleInput.Where(p => p.Contains("move"));
 
             foreach (var moveString in moveList)
@@ -26,8 +36,10 @@ namespace AdventOfCode2022.Day05.ConsoleApp
                 var move = moveString.Replace("move ", "").Replace("from ", "").Replace("to ", "");
                 var moves = move.Split(" ");
 
-                _stack.Move(Convert.ToInt32(moves[0]), Convert.ToInt32(moves[1]), Convert.ToInt32(moves[2]));
+                stack.Move(Convert.ToInt32(moves[0]), Convert.ToInt32(moves[1]), Convert.ToInt32(moves[2]));
             }
+
+            _stack = stack;
         }
 
         public Stack GetStack(List<string> puzzleInput)

@@ -6,7 +6,7 @@ namespace AdventOfCode2022.Day02.ConsoleApp
     {
         List<Round> _tournament = new List<Round>();
         
-        public long GetAnswer1()
+        public string GetAnswer1()
         {
             var totalPoints = 0;
 
@@ -17,10 +17,10 @@ namespace AdventOfCode2022.Day02.ConsoleApp
                 totalPoints += GetOutcomePoints(round.OpponentMove, round.MyMove);
             }
 
-            return totalPoints;
+            return totalPoints.ToString();
         }
 
-        public long GetAnswer2()
+        public string GetAnswer2()
         {
             var totalPoints = 0;
 
@@ -31,7 +31,7 @@ namespace AdventOfCode2022.Day02.ConsoleApp
                 totalPoints += GetOutcomePoints(round.OpponentMove, outcomeMove);
             }
 
-            return totalPoints;
+            return totalPoints.ToString();
         }
 
         public void SetupPuzzleInput(List<string> puzzleInput)
