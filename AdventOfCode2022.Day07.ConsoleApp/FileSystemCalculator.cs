@@ -7,6 +7,7 @@ namespace AdventOfCode2022.Day07.ConsoleApp
         private Directory _directory = new Directory("/", null, 0);
         public List<int> _directorySizes = new List<int>();
 
+
         public string GetAnswer1()
         {
             GetTotalSize(_directory);
@@ -16,7 +17,11 @@ namespace AdventOfCode2022.Day07.ConsoleApp
 
         public string GetAnswer2()
         {
-            return "";
+            var spaceNeeded = 30000000 - (70000000 - _directory.TotalSize);
+            GetTotalSize(_directory);
+            var smallestSize = _directorySizes.Where(s => s >= spaceNeeded).Min();
+
+            return smallestSize.ToString();
         }
 
         private void GetTotalSize(Directory directory)
