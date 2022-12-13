@@ -49,7 +49,7 @@ namespace AdventOfCode2022.Day07.ConsoleApp
                         if (instruction[2] == "..")
                         {
                             level--;
-                            currentNode = currentNode.Parent != null ? currentNode.Parent : currentNode;
+                            currentNode = currentNode.Parent;
                         }
                         else
                         {
