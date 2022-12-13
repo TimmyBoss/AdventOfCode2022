@@ -4,7 +4,7 @@ namespace AdventOfCode2022.Day07.ConsoleApp
 {
     internal class FileSystemCalculator : ITask
     {
-        private Directory _directory = new Directory("/", null);
+        private Directory _directory = new Directory("/", null, 0);
         public List<int> _directorySizes = new List<int>();
 
         public string GetAnswer1()
@@ -34,37 +34,43 @@ namespace AdventOfCode2022.Day07.ConsoleApp
 
         public void SetupPuzzleInput(List<string> puzzleInput)
         {
-            var directory = new Directory("/", null);
+            var level = 0;
+            var directory = new Directory("/", null, level);
             Directory currentNode = directory;
 
             foreach (var line in puzzleInput)
             {
-                Console.WriteLine(line);
                 var instruction = line.Split(" ");
 
                 if (instruction[0] == "$")
                 {
                     if (instruction[1] == "cd")
                     {
-                        currentNode = instruction[2] == ".." ?
-                            currentNode.Parent != null ? currentNode.Parent : _directory.GetDirectory(instruction[2]) :
-                           _directory.GetDirectory(instruction[2]);
-    
+                        if (instruction[2] == "..")
+                        {
+                            level--;
+                            currentNode = currentNode.Parent != null ? currentNode.Parent : currentNode;
+                        }
+                        else
+                        {
+                            level++;
+                            currentNode = _directory.GetDirectory(currentNode.Name + "\\" + instruction[2]);
+                        }
                     }
                 }
                 else
                 {
                     if (instruction[0] == "dir")
-                        currentNode.AddDirectory(new Directory(instruction[1], currentNode));
+                        currentNode.AddDirectory(new Directory(currentNode.Name + "\\" + instruction[1], currentNode, level));
                     else
                     {
                         var size = Convert.ToInt32(instruction[0]);
-                        currentNode.AddFile(new File(instruction[1], size));
+                        currentNode.AddFile(new File(level, instruction[1], size));
                     }
                 }
             }
 
-            _directory = currentNode.Parent;
+            _directory = currentNode.GetRoot();
         }
     }
 }

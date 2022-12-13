@@ -2,6 +2,7 @@
 {
     public interface INode
     {
+        public int Level { get; set; }
         public string Name { get; set; }
     }
 }
