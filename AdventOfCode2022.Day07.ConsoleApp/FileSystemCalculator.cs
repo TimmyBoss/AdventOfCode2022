@@ -22,7 +22,7 @@ namespace AdventOfCode2022.Day07.ConsoleApp
             var smallestSize = _directorySizes.Where(s => s >= spaceNeeded).Min();
 
             return smallestSize.ToString();
-        }
+        } 
 
         private void GetTotalSize(Directory directory)
         {
