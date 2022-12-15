@@ -3,6 +3,8 @@ namespace AdventOfCode2022.Day08.ConsoleApp
 {
     public class TreeGrid : List<List<int>>
     {
+
+
         public TreeGrid()
         { 
         }
@@ -24,7 +26,114 @@ namespace AdventOfCode2022.Day08.ConsoleApp
             return amount;
         }
 
-        public bool IsVisibleFromTop(int rowIndex, int columnIndex)
+        public int GetBestScenicScore()
+        {
+            var bestScenicScore = 0;
+            for (int i = 0; i < Count; i++)
+            {
+                for (int j = 0; j < this[i].Count; j++)
+                {
+                    var scenicScore = GetCalculatedScenicScore(i, j);
+
+                    if (bestScenicScore < scenicScore)
+                        bestScenicScore = scenicScore;
+                }
+            }
+
+            return bestScenicScore; 
+        }
+
+        private int GetCalculatedScenicScore(int rowIndex, int columnIndex)
+        {
+            var top = GetViewingDistanceFromTop(rowIndex, columnIndex);
+            var bottom = GetViewingDistanceFromBottom(rowIndex, columnIndex);
+            var left = GetViewingDistanceFromLeft(rowIndex, columnIndex);
+            var right = GetViewingDistanceFromRight(rowIndex, columnIndex);
+
+            return top * bottom * left * right; 
+        }
+
+        private int GetViewingDistanceFromTop(int rowIndex, int columnIndex)
+        {
+            var amount = 0;
+            var currentAmount = this[rowIndex][columnIndex];
+
+            if (rowIndex > 0)
+            {
+                for (int i = rowIndex - 1; i >= 0; i--)
+                {
+                    amount++;
+                    var topAmount = this[i][columnIndex];
+                    
+                    if (currentAmount <= topAmount)
+                        break;
+                }
+            }
+
+            return amount;
+        }
+
+        private int GetViewingDistanceFromBottom(int rowIndex, int columnIndex)
+        {
+            var amount = 0;
+            var currentAmount = this[rowIndex][columnIndex];
+
+            if (rowIndex < Count)
+            {
+                for (int i = rowIndex + 1; i < Count; i++)
+                {
+                    amount++;
+                    var topAmount = this[i][columnIndex];
+                    
+                    if (currentAmount <= topAmount)
+                        break;
+                }
+            }
+
+            return amount;
+        }
+
+        private int GetViewingDistanceFromLeft(int rowIndex, int columnIndex)
+        {
+            var amount = 0;
+            var currentAmount = this[rowIndex][columnIndex];
+
+            if (columnIndex > 0)
+            {
+                for (int i = columnIndex - 1; i >= 0; i--)
+                {
+                    amount++;
+                    var topAmount = this[rowIndex][i];
+                    
+                    if (currentAmount <= topAmount)
+                        break;
+                }
+            }
+
+            return amount;
+        }
+
+        private int GetViewingDistanceFromRight(int rowIndex, int columnIndex)
+        {
+            var amount = 0;
+            var currentAmount = this[rowIndex][columnIndex];
+
+            if (columnIndex < this[rowIndex].Count)
+            {
+                for (int i = columnIndex + 1; i < this[rowIndex].Count; i++)
+                {
+                    amount++;
+                    var topAmount = this[rowIndex][i];
+
+                    if (currentAmount <= topAmount)
+                        break;
+                }
+            }
+
+            return amount;
+        }
+
+        private bool IsVisibleFromTop(int rowIndex, int columnIndex)
         {
             var isVisible = true;
             var currentAmount = this[rowIndex][columnIndex];
@@ -44,7 +153,7 @@ namespace AdventOfCode2022.Day08.ConsoleApp
             return isVisible;
         }
 
-        public bool IsVisibleFromBottom(int rowIndex, int columnIndex)
+        private bool IsVisibleFromBottom(int rowIndex, int columnIndex)
         {
             var isVisible = true;
             var currentAmount = this[rowIndex][columnIndex];
@@ -64,7 +173,7 @@ namespace AdventOfCode2022.Day08.ConsoleApp
             return isVisible;
         }
 
-        public bool IsVisibleFromLeft(int rowIndex, int columnIndex)
+        private bool IsVisibleFromLeft(int rowIndex, int columnIndex)
         {
             var isVisible = true;
             var currentAmount = this[rowIndex][columnIndex];
@@ -84,7 +193,7 @@ namespace AdventOfCode2022.Day08.ConsoleApp
             return isVisible;
         }
 
-        public bool IsVisibleFromRight(int rowIndex, int columnIndex)
+        private bool IsVisibleFromRight(int rowIndex, int columnIndex)
         {
             var isVisible = true;
             var currentAmount = this[rowIndex][columnIndex];

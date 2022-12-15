@@ -14,7 +14,8 @@ namespace AdventOfCode2022.Day08.ConsoleApp
 
         public string GetAnswer2()
         {
-            return "";
+            var score = _treeGrid.GetBestScenicScore();
+            return score.ToString();
         }
 
         public void SetupPuzzleInput(List<string> puzzleInput)
