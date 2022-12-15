@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AdventOfCode2022.Shared\AdventOfCode2022.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="PuzzleInput.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
